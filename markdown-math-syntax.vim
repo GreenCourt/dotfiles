@@ -2,7 +2,7 @@ aug markdown-math-syntax
   au! filetype markdown call s:markdown_math_syntax()
 aug END
 
-func s:markdown_math_syntax()
+func s:markdown_math_syntax() abort
   " This function is intended to be called
   " after loading $VIMRUNTIME/syntax/markdown.vim
   let l:current_syntax = b:current_syntax | unlet b:current_syntax
