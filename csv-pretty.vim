@@ -7,13 +7,13 @@ func s:csv_pretty(mods, bang, path) abort
   endif
 
   try
-    silent execute a:mods .. "enew" .. a:bang
+    silent execute a:mods .. " new" .. a:bang
   catch
     echohl ErrorMsg | echo v:exception | echohl None
     return
   endtry
 
-  setl buftype=nofile noswapfile
+  setl buftype=nofile noswapfile nowrap
   let undolevels = &l:undolevels
   setl undolevels=-1
 
