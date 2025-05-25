@@ -21,7 +21,7 @@ let s:include =<< trim END
     }
     td:first-child { border-left: none; }
     td:last-child { border-right: none; }
-    </style>/
+    </style>
 END
 
 aug pandoc
