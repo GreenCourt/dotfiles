@@ -46,7 +46,7 @@ END
 
 aug pandoc
   au! filetype markdown let &l:makeprg="pandoc -s -t html -f gfm --katex -M document-css=false "
-        \ .. "-V header-includes='" .. s:include->join("") .. "' % -o %:r.html"
+        \ .. "-V header-includes='" .. s:include->join("") .. "' % -o %:r.pandoc.html"
 aug end
 
 "------------ csv pretty print ------------
