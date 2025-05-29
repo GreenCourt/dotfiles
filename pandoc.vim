@@ -20,11 +20,10 @@ endfunc
 
 let s:include =<< trim END
     <style>
-    html, body { background-color: floralwhite }
     body { margin: 1em 2em; }
-    pre:has(code) { background-color:\#eeeeee; padding:1em; }
     h1 { border-bottom: 1px solid silver; }
     h2 { border-bottom: 1px solid silver; }
+    pre:has(code) { background-color:\#eeeeee; padding:1em; }
     table { border-collapse: collapse; }
     thead { border-bottom: 1px solid gray; }
     th, td { padding: 0.2em 1em; }
