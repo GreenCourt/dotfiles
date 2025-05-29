@@ -22,25 +22,12 @@ let s:include =<< trim END
     <style>
     html, body { background-color: floralwhite }
     body { margin: 1em 2em; }
+    pre:has(code) { background-color:\#eeeeee; padding:1em; }
     h1 { border-bottom: 1px solid silver; }
     h2 { border-bottom: 1px solid silver; }
-    table {
-      border-collapse: collapse;
-      background-color: linen;
-    }
-    thead {
-      background-color: antiquewhite;
-      border-top: 1px solid gray;
-      border-bottom: 1px solid gray;
-    }
-    tr:last-child { border-bottom: 1px solid gray; }
+    table { border-collapse: collapse; }
+    thead { border-bottom: 1px solid gray; }
     th, td { padding: 0.2em 1em; }
-    td {
-      border-right: 1px dashed silver;
-      border-left: 1px dashed silver;
-    }
-    td:first-child { border-left: none; }
-    td:last-child { border-right: none; }
     </style>
 END
 
