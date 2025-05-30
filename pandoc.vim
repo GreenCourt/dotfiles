@@ -30,10 +30,12 @@ let s:include =<< trim END
     </style>
 END
 
-aug pandoc
-  au! filetype markdown let &l:makeprg="pandoc -s -t html -f gfm --katex -M document-css=false "
-        \ .. "-V header-includes='" .. s:include->join("") .. "' % -o %:r.pandoc.html"
-aug end
+if executable("pandoc")
+  aug pandoc
+    au! filetype markdown let &l:makeprg="pandoc -s -t html -f gfm --katex -M document-css=false "
+          \ .. "-V header-includes='" .. s:include->join("") .. "' % -o %.html"
+  aug end
+endif
 
 "------------ csv pretty print ------------
 
