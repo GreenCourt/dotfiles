@@ -11,7 +11,7 @@ func s:markdown_math_syntax() abort
   syn include @tex syntax/tex.vim
   let b:current_syntax = l:current_syntax | unlet l:current_syntax
 
-  syn region MarkdownTeX start="\$" end="\$" skip="\\\$" keepend contains=@tex
+  syn region MarkdownTeX start="\%(\\\)\@<!\$" end="\$" skip="\\\$" keepend contains=@tex
   syn region MarkdownTeX start="\$\$" end="\$\$" keepend contains=@tex
   syn region MarkdownTeX start="\V\\begin{\z(\.\*\)}" end="\V\\end{\z1}" keepend contains=@tex
 endfunc
