@@ -56,7 +56,7 @@ func s:ruff_check() abort
         \   err_io : "out",
         \   out_mode : "nl",
         \   out_cb : {ch, msg -> setloclist(l:winnr, [], "a", #{ lines : [msg], efm: "%f:%l:%c: %m" }) },
-        \   exit_cb : {job, status -> s:notify(status ? "ruff:failed" : "ruff:pass") },
+        \   exit_cb : {job, status -> s:notify(status ? "ruff:" .. status : "") },
         \ })
 endfunc
 
