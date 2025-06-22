@@ -2,7 +2,7 @@ if !executable("ruff") | finish | endif
 
 command -buffer -nargs=0 RuffFormatBuffer call s:fmt("ruff format -n - --stdin-filename " .. expand("%"))
 
-func! s:search_up(targets) abort
+func s:search_up(targets) abort
   let sep = (!exists("+shellslash") || &shellslash) ? "/" : "\\"
   let cur = getcwd()
   while cur->fnamemodify(":h") != cur
@@ -23,7 +23,7 @@ aug ruff
   endif
 aug end
 
-func! s:fmt(cmd) abort
+func s:fmt(cmd) abort
   let buf = getline(1, "$")
   let out = systemlist(a:cmd, buf->join("\n"))
 
@@ -55,7 +55,7 @@ func s:ruff_check() abort
         \   in_buf : l:bufnr,
         \   err_io : "out",
         \   out_mode : "nl",
-        \   out_cb : {ch, msg -> setloclist(l:winnr, [], "a", #{ lines : [msg] }) },
+        \   out_cb : {ch, msg -> setloclist(l:winnr, [], "a", #{ lines : [msg], efm: "%f:%l:%c: %m" }) },
         \   exit_cb : {job, status -> s:notify(status ? "ruff:failed" : "ruff:pass") },
         \ })
 endfunc
