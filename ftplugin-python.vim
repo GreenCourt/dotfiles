@@ -1,6 +1,6 @@
 if !executable("ruff") | finish | endif
 
-command -buffer -nargs=0 RuffFormatBuffer call s:fmt("ruff format -n - --stdin-filename " .. expand("%"))
+command -buffer -nargs=0 RuffFormatBuffer call s:fmt("ruff format -n -")
 
 func s:search_up(start_directory, targets) abort
   let sep = (!exists("+shellslash") || &shellslash) ? "/" : "\\"
@@ -19,7 +19,7 @@ endfunc
 aug ruff
   au! bufwritepost <buffer> call s:ruff_check()
   if !empty(s:search_up(expand("%:p:h"), [".ruff.toml", "ruff.toml"]))
-    au! bufwritepre <buffer> call s:fmt("ruff format -n - --stdin-filename " .. expand("<afile>"))
+    au! bufwritepre <buffer> call s:fmt("ruff format -n -")
   endif
 aug end
 
@@ -50,7 +50,10 @@ func s:ruff_check() abort
   call setloclist(l:winnr, [], "r", #{ title: "ruff", lines:[] })
 
   let b:ruff_job = job_start(
-        \ ["ruff", "check", "-n", "-", "--stdin-filename", expand("<afile>")],
+        \ ["ruff", "check", "-n",
+        \  "--extension", "ipynb:python",
+        \  "--config", "output-format='concise'",
+        \  "-", "--stdin-filename", expand("<afile>")],
         \ #{
         \   in_io : "buffer",
         \   in_buf : str2nr(expand("<abuf>")),
