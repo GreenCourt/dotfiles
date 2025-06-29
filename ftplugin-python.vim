@@ -43,8 +43,9 @@ func s:ruff_check() abort
     call job_stop(b:ruff_job)
   endif
 
-  let l:bufnr = str2nr(expand("<abuf>"))
-  let l:winnr = bufwinnr(l:bufnr)
+  " use winnr() instread of bufwinnr(), because multiple windows maybe tied with the same buffer.
+  " save winnr into variable to use in lambda for out_cb.
+  let l:winnr = winnr()
 
   call setloclist(l:winnr, [], "r", #{ title: "ruff", lines:[] })
 
@@ -52,7 +53,7 @@ func s:ruff_check() abort
         \ ["ruff", "check", "-n", "-", "--stdin-filename", expand("<afile>")],
         \ #{
         \   in_io : "buffer",
-        \   in_buf : l:bufnr,
+        \   in_buf : str2nr(expand("<abuf>")),
         \   err_io : "out",
         \   out_mode : "nl",
         \   out_cb : {ch, msg -> setloclist(l:winnr, [], "a", #{ lines : [msg], efm: "%f:%l:%c: %m" }) },
