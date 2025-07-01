@@ -1,26 +1,8 @@
 if !executable("ruff") | finish | endif
 
-command -buffer -nargs=0 RuffFormatBuffer call s:fmt("ruff format -n -")
-
-func s:search_up(start_directory, targets) abort
-  let sep = (!exists("+shellslash") || &shellslash) ? "/" : "\\"
-  let cur = a:start_directory->fnamemodify(":p")
-  while cur->fnamemodify(":h") != cur
-    for t in a:targets
-      if filereadable(cur .. sep .. t)
-        return cur .. sep .. t
-      endif
-    endfor
-    let cur = cur->fnamemodify(":h")
-  endwhile
-  return ""
-endfunc
-
 aug ruff
   au! bufwritepost <buffer> call s:ruff_check()
-  if !empty(s:search_up(expand("%:p:h"), [".ruff.toml", "ruff.toml"]))
-    au! bufwritepre <buffer> call s:fmt("ruff format -n -")
-  endif
+  au! bufwritepre <buffer> call s:fmt("ruff format -n -")
 aug end
 
 func s:fmt(cmd) abort
