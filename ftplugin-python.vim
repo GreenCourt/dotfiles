@@ -60,17 +60,6 @@ func s:ruff_check() abort
         \   err_io : "out",
         \   out_mode : "nl",
         \   out_cb : {ch, msg -> setloclist(l:winnr, [], "a", #{ lines : [msg], efm: "%f:%l:%c: %m" }) },
-        \   exit_cb : {job, status -> s:notify(status ? "ruff:" .. status : "") },
+        \   exit_cb : {job, status -> execute("echow status ? 'ruff:' .. status : ''", "") },
         \ })
-endfunc
-
-func s:notify(message) abort
-  if exists("s:popup") && index(popup_list(), s:popup) != -1
-    call popup_close(s:popup)
-  endif
-  if empty(a:message)
-    return
-  endif
-  let s:popup = popup_notification(a:message,
-        \ #{ line:&lines , col: &columns - 1 - len(a:message) })
 endfunc
