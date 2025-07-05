@@ -32,7 +32,7 @@ func s:ruff_check() abort
   call setloclist(l:winnr, [], "r", #{ title: "ruff", lines:[] })
 
   let b:ruff_job = job_start(
-        \ ["ruff", "check", "-n",
+        \ ["ruff", "check", "-n", "-q",
         \  "--extension", "ipynb:python",
         \  "--config", "output-format='concise'",
         \  "-", "--stdin-filename", expand("<afile>")],
